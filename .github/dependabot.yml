@@ -7,12 +7,5 @@ updates:
   - package-ecosystem: "npm"
     directories:
       - "/"
-      - "/camera-ui-*"
-    schedule:
-      interval: weekly
-  - package-ecosystem: "pip"
-    directories:
-      - "/"
-      - "/camera-ui-*"
     schedule:
       interval: weekly
