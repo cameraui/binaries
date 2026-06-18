@@ -28,3 +28,4 @@ __pycache__
 /mockups
 
 packages/*/npm/
+scripts/publish.ts
