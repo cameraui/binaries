@@ -67,11 +67,11 @@ jobs:
           for target_dir in "$PKG_DIR"/npm/*/; do
             if [ -f "$target_dir/package.json" ]; then
               echo "::group::$(node -p "require('./$target_dir/package.json').name")"
-              (cd "$target_dir" && npm publish --access public --dry-run)
+              (cd "$target_dir" && npm publish --access public --tag latest --dry-run)
               echo "::endgroup::"
             fi
           done
 
           echo "::group::@camera.ui/${{ inputs.package }} (main)"
-          (cd "$PKG_DIR" && npm publish --access public --dry-run)
+          (cd "$PKG_DIR" && npm publish --access public --tag latest --dry-run)
           echo "::endgroup::"
