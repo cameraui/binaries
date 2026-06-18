@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "pack": "tsx ./scripts/pack.ts",
+    "release": "bash scripts/release.sh",
     "format": "prettier --write '**/*.{js,mjs,ts,json,md}' --ignore-unknown --no-error-on-unmatched-pattern",
     "update": "updates --update ./ && npm i --save"
   },
