@@ -1,0 +1,58 @@
+{
+  "name": "@camera.ui/tunnel",
+  "version": "1.0.3",
+  "description": "camera.ui tunnel client binary",
+  "author": "seydx (https://github.com/seydx)",
+  "type": "commonjs",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "camerauiBinary": {
+    "binaryName": "tunnel",
+    "releaseRepo": "cameraui/tunnel",
+    "version": "v1.0.3",
+    "targets": {
+      "darwin-x64": "tunnel-darwin-x64-{ver}.zip",
+      "darwin-arm64": "tunnel-darwin-arm64-{ver}.zip",
+      "linux-x64": "tunnel-linux-x64-{ver}.zip",
+      "linux-arm64": "tunnel-linux-arm64-{ver}.zip",
+      "win32-x64": "tunnel-windows-x64-{ver}.zip",
+      "win32-arm64": "tunnel-windows-arm64-{ver}.zip"
+    }
+  },
+  "optionalDependencies": {
+    "@camera.ui/tunnel-darwin-arm64": "1.0.3",
+    "@camera.ui/tunnel-darwin-x64": "1.0.3",
+    "@camera.ui/tunnel-linux-arm64": "1.0.3",
+    "@camera.ui/tunnel-linux-x64": "1.0.3",
+    "@camera.ui/tunnel-win32-arm64": "1.0.3",
+    "@camera.ui/tunnel-win32-x64": "1.0.3"
+  },
+  "keywords": [
+    "camera.ui",
+    "tunnel"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cameraui/binaries.git",
+    "directory": "packages/tunnel"
+  },
+  "bugs": {
+    "url": "https://github.com/cameraui/binaries/issues"
+  },
+  "homepage": "https://github.com/cameraui/binaries#readme",
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

@@ -1,0 +1,92 @@
+name: Release
+
+on:
+  push:
+    tags:
+      # <package>-v<version>, e.g. tunnel-v1.0.3, go2rtc-v1.9.14-cui.9, nats-v2.14.2
+      - "tunnel-v*"
+      - "go2rtc-v*"
+      - "nats-v*"
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package to release
+        required: true
+        type: choice
+        options:
+          - tunnel
+          - go2rtc
+          - nats
+      version:
+        description: "Release tag to fetch (e.g. v1.0.3). Leave empty to use the version in package.json."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Pack & Publish
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve package and version
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PACKAGE="${{ inputs.package }}"
+            VERSION="${{ inputs.version }}"
+          else
+            # Tag form: <package>-v<version>  (split on the first "-v")
+            TAG="${GITHUB_REF_NAME}"
+            PACKAGE="${TAG%%-v*}"
+            VERSION="v${TAG#*-v}"
+          fi
+          echo "package=$PACKAGE" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Releasing $PACKAGE @ ${VERSION:-<package.json>}"
+
+      - name: Pack platform packages
+        run: |
+          if [ -n "${{ steps.resolve.outputs.version }}" ]; then
+            npm run pack -- "${{ steps.resolve.outputs.package }}" --version "${{ steps.resolve.outputs.version }}"
+          else
+            npm run pack -- "${{ steps.resolve.outputs.package }}"
+          fi
+
+      - name: List packed output
+        run: ls -R "packages/${{ steps.resolve.outputs.package }}/npm"
+
+      - name: Publish
+        run: |
+          # OIDC trusted publishing needs npm >= 11.5.1
+          npm install -g npm@latest
+
+          PKG_DIR="packages/${{ steps.resolve.outputs.package }}"
+
+          # Publish each per-platform package first, so the main package's
+          # optionalDependencies resolve on the registry immediately.
+          for target_dir in "$PKG_DIR"/npm/*/; do
+            if [ -f "$target_dir/package.json" ]; then
+              (cd "$target_dir" && npm publish --provenance --access public)
+            fi
+          done
+
+          # Publish the main package (pure JS loader, no build, no scripts).
+          (cd "$PKG_DIR" && npm publish --provenance --access public)

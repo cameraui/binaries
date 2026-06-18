@@ -1,0 +1,32 @@
+{
+  "name": "@camera.ui/binaries-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "camera.ui binaries monorepo",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "pack": "tsx ./scripts/pack.ts",
+    "format": "prettier --write '**/*.{js,mjs,ts,json,md}' --ignore-unknown --no-error-on-unmatched-pattern",
+    "update": "updates --update ./ && npm i --save"
+  },
+  "homepage": "https://github.com/cameraui/binaries#readme",
+  "bugs": {
+    "url": "https://github.com/cameraui/binaries/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cameraui/binaries.git"
+  },
+  "license": "MIT",
+  "author": "seydx",
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "prettier": "^3.8.4",
+    "tsx": "^4.22.4",
+    "typescript": "5.9.3",
+    "updates": "^17.18.0"
+  }
+}

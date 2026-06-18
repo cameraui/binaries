@@ -1,0 +1,77 @@
+name: Release (dry-run)
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package to test
+        required: true
+        type: choice
+        options:
+          - tunnel
+          - go2rtc
+          - nats
+      version:
+        description: "Release tag to fetch (e.g. v1.0.3). Leave empty to use the version in package.json."
+        required: false
+        type: string
+      target:
+        description: "Single target to test (e.g. linux-x64). Leave empty for all targets."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    name: Pack & dry-run publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pack platform packages
+        run: |
+          ARGS="${{ inputs.package }}"
+          if [ -n "${{ inputs.version }}" ]; then ARGS="$ARGS --version ${{ inputs.version }}"; fi
+          if [ -n "${{ inputs.target }}" ]; then ARGS="$ARGS --target ${{ inputs.target }}"; fi
+          npm run pack -- $ARGS
+
+      - name: Inspect packed binaries
+        run: |
+          PKG_DIR="packages/${{ inputs.package }}"
+          echo "::group::Tree"
+          ls -R "$PKG_DIR/npm"
+          echo "::endgroup::"
+          echo "::group::Binary architectures"
+          find "$PKG_DIR/npm" -type f ! -name package.json -exec sh -c 'printf "%s: " "$1"; file -b "$1"' _ {} \;
+          echo "::endgroup::"
+          echo "::group::Main package.json"
+          cat "$PKG_DIR/package.json"
+          echo "::endgroup::"
+
+      - name: Dry-run publish (shows tarball contents — nothing is published)
+        run: |
+          PKG_DIR="packages/${{ inputs.package }}"
+
+          for target_dir in "$PKG_DIR"/npm/*/; do
+            if [ -f "$target_dir/package.json" ]; then
+              echo "::group::$(node -p "require('./$target_dir/package.json').name")"
+              (cd "$target_dir" && npm publish --access public --dry-run)
+              echo "::endgroup::"
+            fi
+          done
+
+          echo "::group::@camera.ui/${{ inputs.package }} (main)"
+          (cd "$PKG_DIR" && npm publish --access public --dry-run)
+          echo "::endgroup::"
