@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "audit": "npm audit fix && npm --prefix packages/go2rtc audit fix && npm --prefix packages/nats audit fix && npm --prefix packages/tunnel audit fix",
+    "audit": "npm audit fix",
     "format": "prettier --write '**/*.{js,mjs,ts,json,md}' --ignore-unknown --no-error-on-unmatched-pattern",
     "install-updates": "npm i --save",
     "pack": "tsx ./scripts/pack.ts",
