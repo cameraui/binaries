@@ -1,4 +1,4 @@
-# camera.ui binaries
+# camera.ui - Binaries
 
 [![go2rtc](https://img.shields.io/npm/v/@camera.ui/go2rtc?label=go2rtc&logo=npm)](https://www.npmjs.com/package/@camera.ui/go2rtc)
 [![nats](https://img.shields.io/npm/v/@camera.ui/nats?label=nats&logo=npm)](https://www.npmjs.com/package/@camera.ui/nats)

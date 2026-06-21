@@ -14,11 +14,11 @@ if (isNatsServerAvailable()) {
 
 ## Supported platforms
 
-| os      | x64 | arm64 |
-| ------- | --- | ----- |
-| darwin  | ✓   | ✓     |
-| linux   | ✓   | ✓     |
-| win32   | ✓   | ✓     |
+| os     | x64 | arm64 |
+| ------ | --- | ----- |
+| darwin | ✓   | ✓     |
+| linux  | ✓   | ✓     |
+| win32  | ✓   | ✓     |
 
 ---
 
