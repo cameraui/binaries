@@ -26,7 +26,7 @@
   "license": "MIT",
   "author": "seydx",
   "devDependencies": {
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.0.1",
     "prettier": "^3.8.4",
     "tsx": "^4.22.4",
     "typescript": "5.9.3",
