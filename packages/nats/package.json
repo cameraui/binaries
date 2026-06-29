@@ -1,6 +1,6 @@
 {
   "name": "@camera.ui/nats",
-  "version": "2.14.2",
+  "version": "2.14.3",
   "description": "camera.ui nats-server binary",
   "author": "seydx (https://github.com/seydx)",
   "type": "commonjs",
@@ -21,7 +21,7 @@
     "binaryName": "nats",
     "releaseBinaryName": "nats-server",
     "releaseRepo": "nats-io/nats-server",
-    "version": "v2.14.2",
+    "version": "v2.14.3",
     "targets": {
       "darwin-x64": "nats-server-{tag}-darwin-amd64.tar.gz",
       "darwin-arm64": "nats-server-{tag}-darwin-arm64.tar.gz",
@@ -32,12 +32,12 @@
     }
   },
   "optionalDependencies": {
-    "@camera.ui/nats-darwin-arm64": "2.14.2",
-    "@camera.ui/nats-darwin-x64": "2.14.2",
-    "@camera.ui/nats-linux-arm64": "2.14.2",
-    "@camera.ui/nats-linux-x64": "2.14.2",
-    "@camera.ui/nats-win32-arm64": "2.14.2",
-    "@camera.ui/nats-win32-x64": "2.14.2"
+    "@camera.ui/nats-darwin-arm64": "2.14.3",
+    "@camera.ui/nats-darwin-x64": "2.14.3",
+    "@camera.ui/nats-linux-arm64": "2.14.3",
+    "@camera.ui/nats-linux-x64": "2.14.3",
+    "@camera.ui/nats-win32-arm64": "2.14.3",
+    "@camera.ui/nats-win32-x64": "2.14.3"
   },
   "keywords": [
     "camera.ui",
