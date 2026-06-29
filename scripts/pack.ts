@@ -1,18 +1,7 @@
 #!/usr/bin/env tsx
 
 import { execFileSync } from 'node:child_process';
-import {
-  chmodSync,
-  copyFileSync,
-  existsSync,
-  mkdirSync,
-  mkdtempSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  statSync,
-  writeFileSync,
-} from 'node:fs';
+import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -37,9 +26,7 @@ function parseArgs(argv: string[]): {
 } {
   const [pkg, ...rest] = argv;
   if (!pkg) {
-    throw new Error(
-      'Usage: tsx scripts/pack.ts <package> [--version <tag>] [--target <target>]',
-    );
+    throw new Error('Usage: tsx scripts/pack.ts <package> [--version <tag>] [--target <target>]');
   }
 
   let version: string | undefined;
@@ -108,23 +95,15 @@ function osCpu(target: string): { os: string; cpu: string } {
   return { os: target.slice(0, idx), cpu: target.slice(idx + 1) };
 }
 
-async function packTarget(
-  pkg: string,
-  config: BinaryConfig,
-  version: string,
-  target: string,
-): Promise<string> {
+async function packTarget(pkg: string, config: BinaryConfig, version: string, target: string): Promise<string> {
   const ver = version.replace(/^v/, '');
   const { os, cpu } = osCpu(target);
   const isWin = os === 'win32';
 
   const outBinary = config.binaryName + (isWin ? '.exe' : '');
-  const innerBinary =
-    (config.releaseBinaryName ?? config.binaryName) + (isWin ? '.exe' : '');
+  const innerBinary = (config.releaseBinaryName ?? config.binaryName) + (isWin ? '.exe' : '');
 
-  const asset = config.targets[target]
-    .replace(/\{tag\}/g, version)
-    .replace(/\{ver\}/g, ver);
+  const asset = config.targets[target].replace(/\{tag\}/g, version).replace(/\{ver\}/g, ver);
   const url = `https://github.com/${config.releaseRepo}/releases/download/${version}/${asset}`;
 
   const tmp = mkdtempSync(join(tmpdir(), `pack-${pkg}-${target}-`));
@@ -176,11 +155,7 @@ async function packTarget(
 }
 
 async function main(): Promise<void> {
-  const {
-    pkg,
-    version: versionOverride,
-    target,
-  } = parseArgs(process.argv.slice(2));
+  const { pkg, version: versionOverride, target } = parseArgs(process.argv.slice(2));
 
   const mainPkgPath = join(ROOT, 'packages', pkg, 'package.json');
   if (!existsSync(mainPkgPath)) {
@@ -194,9 +169,7 @@ async function main(): Promise<void> {
   }>(mainPkgPath);
   const config = mainPkg.camerauiBinary;
   if (!config) {
-    throw new Error(
-      `packages/${pkg}/package.json is missing the "camerauiBinary" config block`,
-    );
+    throw new Error(`packages/${pkg}/package.json is missing the "camerauiBinary" config block`);
   }
 
   const version = versionOverride ?? config.version;
@@ -219,9 +192,7 @@ async function main(): Promise<void> {
   // Keep main package.json in sync: version + pinned optional deps + config version.
   mainPkg.version = ver;
   mainPkg.camerauiBinary = { ...config, version };
-  mainPkg.optionalDependencies = Object.fromEntries(
-    Object.entries(optionalDependencies).sort(([a], [b]) => a.localeCompare(b)),
-  );
+  mainPkg.optionalDependencies = Object.fromEntries(Object.entries(optionalDependencies).sort(([a], [b]) => a.localeCompare(b)));
   writeJson(mainPkgPath, mainPkg);
 
   console.log(`Done. Main package @camera.ui/${pkg}@${ver} updated.`);

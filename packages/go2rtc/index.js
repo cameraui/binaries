@@ -15,8 +15,7 @@ function resolveBinaryPath() {
     return join(dirname(manifest), binaryFile);
   } catch {
     throw new Error(
-      `[${pkg.name}] No prebuilt binary available for ${process.platform}-${process.arch}. ` +
-        `Expected the optional dependency "${platformPackage}" to be installed.`,
+      `[${pkg.name}] No prebuilt binary available for ${process.platform}-${process.arch}. ` + `Expected the optional dependency "${platformPackage}" to be installed.`,
     );
   }
 }

@@ -7,5 +7,8 @@ updates:
   - package-ecosystem: "npm"
     directories:
       - "/"
+    ignore:
+      - dependency-name: "eslint"
+      - dependency-name: "typescript"
     schedule:
       interval: daily
