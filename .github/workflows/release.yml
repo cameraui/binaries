@@ -76,7 +76,7 @@ jobs:
       - name: Publish
         run: |
           # OIDC trusted publishing needs npm >= 11.5.1
-          npm install -g npm@latest
+          npm install -g npm@11.18.0
 
           PKG_DIR="packages/${{ steps.resolve.outputs.package }}"
 
