@@ -1,6 +1,6 @@
 {
   "name": "@camera.ui/go2rtc",
-  "version": "1.9.14-cui.18",
+  "version": "1.9.14-cui.19",
   "description": "camera.ui go2rtc binary",
   "author": "seydx (https://github.com/seydx)",
   "type": "commonjs",
@@ -20,7 +20,7 @@
   "camerauiBinary": {
     "binaryName": "go2rtc",
     "releaseRepo": "seydx/go2rtc",
-    "version": "v1.9.14-cui.18",
+    "version": "v1.9.14-cui.19",
     "targets": {
       "darwin-x64": "go2rtc-darwin-x64-{ver}.zip",
       "darwin-arm64": "go2rtc-darwin-arm64-{ver}.zip",
@@ -31,12 +31,12 @@
     }
   },
   "optionalDependencies": {
-    "@camera.ui/go2rtc-darwin-arm64": "1.9.14-cui.18",
-    "@camera.ui/go2rtc-darwin-x64": "1.9.14-cui.18",
-    "@camera.ui/go2rtc-linux-arm64": "1.9.14-cui.18",
-    "@camera.ui/go2rtc-linux-x64": "1.9.14-cui.18",
-    "@camera.ui/go2rtc-win32-arm64": "1.9.14-cui.18",
-    "@camera.ui/go2rtc-win32-x64": "1.9.14-cui.18"
+    "@camera.ui/go2rtc-darwin-arm64": "1.9.14-cui.19",
+    "@camera.ui/go2rtc-darwin-x64": "1.9.14-cui.19",
+    "@camera.ui/go2rtc-linux-arm64": "1.9.14-cui.19",
+    "@camera.ui/go2rtc-linux-x64": "1.9.14-cui.19",
+    "@camera.ui/go2rtc-win32-arm64": "1.9.14-cui.19",
+    "@camera.ui/go2rtc-win32-x64": "1.9.14-cui.19"
   },
   "keywords": [
     "camera.ui",
