@@ -31,7 +31,7 @@
     }
   },
   "optionalDependencies": {
-    "@camera.ui/go2rtc-darwin-arm64": "1.9.14-cui.20",
+    "@camera.ui/go2rtc-darwin-arm64": "^1.9.14-cui.20",
     "@camera.ui/go2rtc-darwin-x64": "1.9.14-cui.20",
     "@camera.ui/go2rtc-linux-arm64": "1.9.14-cui.20",
     "@camera.ui/go2rtc-linux-x64": "1.9.14-cui.20",
