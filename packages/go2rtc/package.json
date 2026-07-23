@@ -36,7 +36,7 @@
     "@camera.ui/go2rtc-linux-arm64": "1.9.14-cui.21",
     "@camera.ui/go2rtc-linux-x64": "1.9.14-cui.21",
     "@camera.ui/go2rtc-win32-arm64": "1.9.14-cui.21",
-    "@camera.ui/go2rtc-win32-x64": "1.9.14-cui.21"
+    "@camera.ui/go2rtc-win32-x64": "^1.9.14-cui.21"
   },
   "keywords": [
     "camera.ui",
