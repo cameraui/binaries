@@ -5,9 +5,7 @@
     "module": "esnext",
     "target": "ESNext",
     "moduleResolution": "Bundler",
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "noEmit": true,
     "declaration": true,
     "sourceMap": true,
@@ -20,11 +18,6 @@
     "resolveJsonModule": true,
     "verbatimModuleSyntax": true
   },
-  "include": [
-    "scripts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-  ]
+  "include": ["scripts"],
+  "exclude": ["node_modules", "dist"]
 }
