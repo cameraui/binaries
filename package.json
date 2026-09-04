@@ -13,7 +13,7 @@
     "install-updates": "npm i --save",
     "pack": "tsx ./scripts/pack.ts",
     "release": "bash scripts/release.sh",
-    "update": "updates --update ./"
+    "update": "updates -M npm,pypi,go,cargo,docker,make --update ./"
   },
   "homepage": "https://github.com/cameraui/binaries#readme",
   "bugs": {
@@ -30,6 +30,6 @@
     "prettier": "^3.9.6",
     "tsx": "^4.23.13",
     "typescript": "5.9.3",
-    "updates": "^18.0.7"
+    "updates": "^18.1.0"
   }
 }
