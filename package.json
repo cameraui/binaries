@@ -26,10 +26,10 @@
   "license": "MIT",
   "author": "seydx",
   "devDependencies": {
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "prettier": "^3.9.9",
     "tsx": "^4.23.15",
     "typescript": "5.9.3",
-    "updates": "^19.0.0"
+    "updates": "^19.0.2"
   }
 }
