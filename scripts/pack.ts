@@ -28,6 +28,11 @@ interface ReleaseAssets {
   noted: Map<string, string>;
 }
 
+interface LicenseFile {
+  name: string;
+  content: Buffer;
+}
+
 const REPO_URL = 'git+https://github.com/cameraui/binaries.git';
 
 function parseArgs(argv: string[]): {
@@ -77,13 +82,16 @@ function sha256(file: string): string {
   return createHash('sha256').update(readFileSync(file)).digest('hex');
 }
 
-async function fetchReleaseAssets(repo: string, version: string): Promise<ReleaseAssets> {
+function githubHeaders(): Record<string, string> {
   const headers: Record<string, string> = { accept: 'application/vnd.github+json' };
   if (process.env.GITHUB_TOKEN) {
     headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   }
+  return headers;
+}
 
-  const res = await fetch(`https://api.github.com/repos/${repo}/releases/tags/${version}`, { headers });
+async function fetchReleaseAssets(repo: string, version: string): Promise<ReleaseAssets> {
+  const res = await fetch(`https://api.github.com/repos/${repo}/releases/tags/${version}`, { headers: githubHeaders() });
   if (!res.ok) {
     throw new Error(`Release lookup failed (${res.status}): ${repo}@${version}`);
   }
@@ -107,6 +115,21 @@ async function fetchReleaseAssets(repo: string, version: string): Promise<Releas
   }
 
   return { digests, noted };
+}
+
+async function fetchLicense(repo: string, tag: string, expected: string): Promise<LicenseFile> {
+  const res = await fetch(`https://api.github.com/repos/${repo}/license?ref=${encodeURIComponent(tag)}`, { headers: githubHeaders() });
+  if (!res.ok) {
+    throw new Error(`License lookup failed (${res.status}): ${repo}@${tag}`);
+  }
+
+  const license = (await res.json()) as { name: string; content: string; license?: { spdx_id?: string } };
+  const spdx = license.license?.spdx_id;
+  if (spdx !== expected) {
+    throw new Error(`${repo}@${tag} is licensed ${spdx ?? 'unknown'}, but camerauiBinary.license says ${expected}`);
+  }
+
+  return { name: license.name, content: Buffer.from(license.content, 'base64') };
 }
 
 function isArchive(asset: string): boolean {
@@ -166,7 +189,7 @@ function verifyChecksums(asset: string, assets: ReleaseAssets, archivePath: stri
   }
 }
 
-async function packTarget(pkg: string, config: BinaryConfig, tag: string, ver: string, target: string, assets: ReleaseAssets): Promise<string> {
+async function packTarget(pkg: string, config: BinaryConfig, tag: string, ver: string, target: string, assets: ReleaseAssets, license: LicenseFile): Promise<string> {
   const { os, cpu } = osCpu(target);
   const isWin = os === 'win32';
 
@@ -204,6 +227,7 @@ async function packTarget(pkg: string, config: BinaryConfig, tag: string, ver: s
     if (!isWin) {
       chmodSync(binaryDest, 0o755);
     }
+    writeFileSync(join(pkgDir, license.name), license.content);
 
     const platformPackageName = `@camera.ui/${pkg}-${target}`;
     writeJson(join(pkgDir, 'package.json'), {
@@ -212,7 +236,7 @@ async function packTarget(pkg: string, config: BinaryConfig, tag: string, ver: s
       os: [os],
       cpu: [cpu],
       main: outBinary,
-      files: [outBinary],
+      files: [outBinary, license.name],
       license: config.license ?? 'MIT',
       repository: {
         type: 'git',
@@ -254,6 +278,7 @@ async function main(): Promise<void> {
   console.log(`Packing ${pkg} ${tag} for: ${targets.join(', ')}`);
 
   const assets = await fetchReleaseAssets(config.releaseRepo, tag);
+  const license = await fetchLicense(config.releaseRepo, tag, config.license ?? 'MIT');
 
   const optionalDependencies: Record<string, string> = {
     ...mainPkg.optionalDependencies,
@@ -262,7 +287,7 @@ async function main(): Promise<void> {
     if (!config.targets[t]) {
       throw new Error(`No asset configured for target "${t}"`);
     }
-    const name = await packTarget(pkg, config, tag, ver, t, assets);
+    const name = await packTarget(pkg, config, tag, ver, t, assets, license);
     optionalDependencies[name] = ver;
   }
 
