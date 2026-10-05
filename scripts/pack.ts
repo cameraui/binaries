@@ -243,7 +243,6 @@ async function packTarget(pkg: string, config: BinaryConfig, tag: string, ver: s
         url: REPO_URL,
         directory: `packages/${pkg}/npm/${target}`,
       },
-      engines: { node: '>=22.0.0' },
     });
 
     console.log(`  ✓ ${platformPackageName}@${ver}`);
