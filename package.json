@@ -30,6 +30,6 @@
     "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "5.9.3",
-    "updates": "^19.2.0"
+    "updates": "^19.2.1"
   }
 }
