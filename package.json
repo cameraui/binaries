@@ -4,9 +4,6 @@
   "private": true,
   "description": "camera.ui binaries monorepo",
   "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "audit": "npm audit fix",
     "format": "prettier --write '**/*.{js,mjs,ts,json,md}' --ignore-unknown --no-error-on-unmatched-pattern",
