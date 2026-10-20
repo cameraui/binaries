@@ -20,12 +20,10 @@ function resolveBinaryPath() {
   }
 }
 
-/** Absolute path to the cloudflared binary for the current platform. Throws if unsupported. */
 function cloudflaredPath() {
   return resolveBinaryPath();
 }
 
-/** Whether the cloudflared binary for the current platform is installed and present on disk. */
 function isCloudflaredAvailable() {
   try {
     return existsSync(resolveBinaryPath());

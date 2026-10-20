@@ -20,12 +20,10 @@ function resolveBinaryPath() {
   }
 }
 
-/** Absolute path to the tunnel binary for the current platform. Throws if unsupported. */
 function tunnelPath() {
   return resolveBinaryPath();
 }
 
-/** Whether the tunnel binary for the current platform is installed and present on disk. */
 function isTunnelAvailable() {
   try {
     return existsSync(resolveBinaryPath());

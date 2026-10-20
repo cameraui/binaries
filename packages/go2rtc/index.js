@@ -20,12 +20,10 @@ function resolveBinaryPath() {
   }
 }
 
-/** Absolute path to the go2rtc binary for the current platform. Throws if unsupported. */
 function go2rtcPath() {
   return resolveBinaryPath();
 }
 
-/** Whether the go2rtc binary for the current platform is installed and present on disk. */
 function isGo2rtcAvailable() {
   try {
     return existsSync(resolveBinaryPath());

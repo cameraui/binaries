@@ -20,12 +20,10 @@ function resolveBinaryPath() {
   }
 }
 
-/** Absolute path to the nats-server binary for the current platform. Throws if unsupported. */
 function natsServerPath() {
   return resolveBinaryPath();
 }
 
-/** Whether the nats-server binary for the current platform is installed and present on disk. */
 function isNatsServerAvailable() {
   try {
     return existsSync(resolveBinaryPath());

@@ -76,10 +76,9 @@ fi
 
 cur="$(node -p "require('./$DIR/package.json').version")"
 
-# Normalise: strip a leading "v"; the package version carries no "v".
 NEW="${SPEC#v}"
 
-# semver core with optional prerelease/build metadata (e.g. 1.9.14-cui.9)
+# X.Y.Z with optional prerelease or build metadata, e.g. 1.9.14-cui.9
 if ! echo "$NEW" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+([-+].+)?$'; then
   echo -e "${RED}Invalid version '$NEW' (expected X.Y.Z or X.Y.Z-prerelease).${NC}"
   exit 1
@@ -93,7 +92,7 @@ fi
 
 echo -e "${CYAN}Releasing $NAME ($DIR): $cur -> $NEW (tag $TAG)${NC}"
 
-# Most projects tag as v<version>; cloudflared tags without the prefix.
+# cloudflared tags without the v prefix
 PREFIX="$(node -p "require('./$DIR/package.json').camerauiBinary.tagPrefix ?? 'v'")"
 UPSTREAM_TAG="$PREFIX$NEW"
 
@@ -108,8 +107,7 @@ if [ "$SKIP_CHECKS" = false ]; then
   echo -e "${GREEN}Upstream release found.${NC}"
 fi
 
-# Update the package version, the upstream tag in the config, and the pinned
-# optionalDependencies — so the committed manifest matches what CI will publish.
+# the committed manifest has to match what CI publishes
 node -e "
   const f = './$DIR/package.json';
   const p = require(f);

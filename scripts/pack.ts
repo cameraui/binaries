@@ -15,17 +15,14 @@ interface BinaryConfig {
   releaseBinaryName?: string;
   releaseRepo: string;
   version: string;
-  /** upstream tag prefix, "v" unless the project tags without one (cloudflared) */
-  tagPrefix?: string;
+  tagPrefix?: string; // defaults to "v", cloudflared tags without one
   license?: string;
   targets: Record<string, string>;
 }
 
 interface ReleaseAssets {
-  /** asset name -> sha256 GitHub computed for the uploaded file */
-  digests: Map<string, string>;
-  /** asset name -> sha256 the maintainers list in the release notes */
-  noted: Map<string, string>;
+  digests: Map<string, string>; // asset -> sha256 GitHub computed for the upload
+  noted: Map<string, string>; // asset -> sha256 from the release notes
 }
 
 interface LicenseFile {
@@ -148,7 +145,6 @@ function extract(archive: string, into: string): void {
   }
 }
 
-/** Recursively find a file whose basename matches one of `names`. */
 function findFile(dir: string, names: string[]): string | undefined {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
@@ -169,9 +165,6 @@ function osCpu(target: string): { os: string; cpu: string } {
   return { os: target.slice(0, idx), cpu: target.slice(idx + 1) };
 }
 
-// Two independent sources: the digest GitHub computed for the upload, and the
-// hash the maintainers publish in the release notes. The notes may describe the
-// binary inside an archive instead of the archive itself (cloudflared on macOS).
 function verifyChecksums(asset: string, assets: ReleaseAssets, archivePath: string, binaryPath: string): void {
   const digest = assets.digests.get(asset);
   if (!digest) {
@@ -183,6 +176,7 @@ function verifyChecksums(asset: string, assets: ReleaseAssets, archivePath: stri
     throw new Error(`Checksum mismatch for ${asset}: expected ${digest}, got ${downloaded}`);
   }
 
+  // the notes may hash the binary inside the archive instead (cloudflared on macOS)
   const noted = assets.noted.get(asset);
   if (noted && noted !== downloaded && noted !== sha256(binaryPath)) {
     throw new Error(`Release notes checksum for ${asset} matches neither the download nor the extracted binary`);
@@ -290,7 +284,6 @@ async function main(): Promise<void> {
     optionalDependencies[name] = ver;
   }
 
-  // Keep main package.json in sync: version + pinned optional deps + config version.
   mainPkg.version = ver;
   mainPkg.camerauiBinary = { ...config, version: tag };
   mainPkg.optionalDependencies = Object.fromEntries(Object.entries(optionalDependencies).sort(([a], [b]) => a.localeCompare(b)));
