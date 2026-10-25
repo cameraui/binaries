@@ -1,6 +1,6 @@
 {
   "name": "@camera.ui/tunnel",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "camera.ui tunnel client binary",
   "author": "seydx (https://github.com/seydx)",
   "type": "commonjs",
@@ -20,7 +20,7 @@
   "camerauiBinary": {
     "binaryName": "tunnel",
     "releaseRepo": "cameraui/tunnel",
-    "version": "v1.1.0",
+    "version": "v1.1.1",
     "targets": {
       "darwin-x64": "tunnel-darwin-x64-{ver}.zip",
       "darwin-arm64": "tunnel-darwin-arm64-{ver}.zip",
@@ -31,12 +31,12 @@
     }
   },
   "optionalDependencies": {
-    "@camera.ui/tunnel-darwin-arm64": "1.1.0",
-    "@camera.ui/tunnel-darwin-x64": "1.1.0",
-    "@camera.ui/tunnel-linux-arm64": "1.1.0",
-    "@camera.ui/tunnel-linux-x64": "1.1.0",
-    "@camera.ui/tunnel-win32-arm64": "1.1.0",
-    "@camera.ui/tunnel-win32-x64": "1.1.0"
+    "@camera.ui/tunnel-darwin-arm64": "1.1.1",
+    "@camera.ui/tunnel-darwin-x64": "1.1.1",
+    "@camera.ui/tunnel-linux-arm64": "1.1.1",
+    "@camera.ui/tunnel-linux-x64": "1.1.1",
+    "@camera.ui/tunnel-win32-arm64": "1.1.1",
+    "@camera.ui/tunnel-win32-x64": "1.1.1"
   },
   "keywords": [
     "camera.ui",
