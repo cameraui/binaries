@@ -1,6 +1,6 @@
 {
   "name": "@camera.ui/cloudflared",
-  "version": "2026.9.1-cui.1",
+  "version": "2026.10.4",
   "description": "camera.ui cloudflared binary",
   "author": "seydx (https://github.com/seydx)",
   "type": "commonjs",
@@ -20,7 +20,7 @@
   "camerauiBinary": {
     "binaryName": "cloudflared",
     "releaseRepo": "seydx/cloudflared",
-    "version": "2026.9.1-cui.1",
+    "version": "2026.10.4",
     "tagPrefix": "",
     "license": "Apache-2.0",
     "targets": {
@@ -33,12 +33,12 @@
     }
   },
   "optionalDependencies": {
-    "@camera.ui/cloudflared-darwin-arm64": "2026.9.1-cui.1",
-    "@camera.ui/cloudflared-darwin-x64": "2026.9.1-cui.1",
-    "@camera.ui/cloudflared-linux-arm64": "2026.9.1-cui.1",
-    "@camera.ui/cloudflared-linux-x64": "2026.9.1-cui.1",
-    "@camera.ui/cloudflared-win32-arm64": "2026.9.1-cui.1",
-    "@camera.ui/cloudflared-win32-x64": "2026.9.1-cui.1"
+    "@camera.ui/cloudflared-darwin-arm64": "2026.10.4",
+    "@camera.ui/cloudflared-darwin-x64": "2026.10.4",
+    "@camera.ui/cloudflared-linux-arm64": "2026.10.4",
+    "@camera.ui/cloudflared-linux-x64": "2026.10.4",
+    "@camera.ui/cloudflared-win32-arm64": "2026.10.4",
+    "@camera.ui/cloudflared-win32-x64": "2026.10.4"
   },
   "keywords": [
     "camera.ui",
