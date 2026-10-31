@@ -10,7 +10,7 @@
     "install-updates": "npm i --save",
     "pack": "tsx ./scripts/pack.ts",
     "release": "bash scripts/release.sh",
-    "update": "updates -M npm,pypi,go,cargo,docker,make --update ./"
+    "update": "updates -M npm,pypi,go,cargo,docker --update ./"
   },
   "homepage": "https://github.com/cameraui/binaries#readme",
   "bugs": {
