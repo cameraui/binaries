@@ -14,4 +14,4 @@ Prebuilt platform binaries for the camera.ui ecosystem, distributed via npm `opt
 
 ---
 
-_Part of the camera.ui ecosystem - A comprehensive camera management solution._
+_Part of camera.ui, the local-first camera and NVR platform._
