@@ -24,7 +24,7 @@
   "author": "seydx",
   "devDependencies": {
     "@types/node": "^26.6.6",
-    "prettier": "^3.10.0",
+    "prettier": "^3.10.1",
     "tsx": "^4.23.15",
     "typescript": "5.9.3",
     "updates": "^20.0.1"
