@@ -22,4 +22,4 @@ if (isGo2rtcAvailable()) {
 
 ---
 
-_Part of the camera.ui ecosystem._
+_Part of camera.ui, the local-first camera and NVR platform._

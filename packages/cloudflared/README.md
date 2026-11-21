@@ -26,4 +26,4 @@ The binary is Apache-2.0, see [cloudflare/cloudflared](https://github.com/cloudf
 
 ---
 
-_Part of the camera.ui ecosystem._
+_Part of camera.ui, the local-first camera and NVR platform._
