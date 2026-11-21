@@ -43,7 +43,8 @@
     "go2rtc",
     "webrtc",
     "rtc",
-    "streaming"
+    "streaming",
+    "rtsp"
   ],
   "license": "MIT",
   "repository": {

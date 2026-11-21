@@ -40,7 +40,8 @@
   },
   "keywords": [
     "camera.ui",
-    "tunnel"
+    "tunnel",
+    "remote-access"
   ],
   "license": "MIT",
   "repository": {
